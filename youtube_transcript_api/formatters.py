@@ -124,7 +124,16 @@ class _TextBasedFormatter(TextFormatter):
         hours_float, remainder = divmod(time, 3600)
         mins_float, secs_float = divmod(remainder, 60)
         hours, mins, secs = int(hours_float), int(mins_float), int(secs_float)
-        ms = int(round((time - int(time)) * 1000, 2))
+        ms = int(round((time - int(time)) * 1000))
+        if ms == 1000:
+            secs += 1
+            ms = 0
+            if secs == 60:
+                mins += 1
+                secs = 0
+                if mins == 60:
+                    hours += 1
+                    mins = 0
         return self._format_timestamp(hours, mins, secs, ms)
 
     def format_transcript(self, transcript: FetchedTranscript, **kwargs) -> str:

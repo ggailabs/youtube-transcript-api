@@ -157,3 +157,14 @@ class TestFormatters(TestCase):
     def test_formatter_loader__unknown_format(self):
         with self.assertRaises(FormatterLoader.UnknownFormatterType):
             FormatterLoader().load("png")
+
+    def test_seconds_to_timestamp_rounding(self):
+        formatter = SRTFormatter()
+        self.assertEqual(
+            formatter._seconds_to_timestamp(0.9999),
+            "00:00:01,000",
+        )
+        self.assertEqual(
+            formatter._seconds_to_timestamp(59.9999),
+            "00:01:00,000",
+        )
