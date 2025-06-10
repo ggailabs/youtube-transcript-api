@@ -374,6 +374,18 @@ class TranscriptListFetcher:
         except YouTubeDataUnparsable as e:
             if 'class="g-recaptcha"' in html:
                 raise IpBlocked(video_id)
+            match = re.search(r"ytInitialPlayerResponse\s*=\s*(\{.*?\});", html)
+            if match:
+                try:
+                    alt_data = json.loads(match.group(1))
+                except json.JSONDecodeError:
+                    pass
+                else:
+                    captions_json = (
+                        alt_data.get("captions", {}).get("playerCaptionsTracklistRenderer")
+                    )
+                    if captions_json and "captionTracks" in captions_json:
+                        return captions_json
             # This should never happen!
             raise e  # pragma: no cover
 
