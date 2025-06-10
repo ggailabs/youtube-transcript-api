@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+window.ytInitialPlayerResponse={"playabilityStatus":{"status":"OK"},"captions":{"playerCaptionsTracklistRenderer":{"captionTracks":[{"baseUrl":"https://www.youtube.com/api/timedtext?v=GJLlxj_dtq8","languageCode":"en","name":{"simpleText":"English"}}]}}};
+</script>
+</body>
+</html>
